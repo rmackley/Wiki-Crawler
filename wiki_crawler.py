@@ -42,10 +42,22 @@ def crawler():
     input = get_arguments()
     rounds = input.rounds
     start_link = input.url
-#TODO make output more pretty
-    print("Start loop: ")
+    #ASCII art generated using http://www.patorjk.com/software/taag
+    print("""
+ __          ___ _    _    _____                    _
+ \ \        / (_) |  (_)  / ____|                  | |
+  \ \  /\  / / _| | ___  | |     _ __ __ ___      _| | ___ _ __
+   \ \/  \/ / | | |/ / | | |    | '__/ _` \ \ /\ / / |/ _ \ '__|
+    \  /\  /  | |   <| | | |____| | | (_| |\ V  V /| |  __/ |
+     \/  \/   |_|_|\_\_|  \_____|_|  \__,_| \_/\_/ |_|\___|_|
+
+""")
+    print("Start crawling: ")
     for i in range(0, rounds):
-        print("Round: ", i)
+        print("Round: ", i+1)
         s = fetch_webpage(start_link)
         start_link = get_random_link(s)
         print(start_link)
+
+if __name__ == "__main__":
+    crawler()
