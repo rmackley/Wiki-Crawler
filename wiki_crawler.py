@@ -7,21 +7,20 @@ import argparse
 def fetch_webpage(fetch_url):
     r = requests.get(fetch_url)
     soup = BeautifulSoup(r.text, 'html.parser')
+    #Pages that don't exist have a div with class="noarticletext"
+    if soup.find(class_="noarticletext"):
+        raise ValueError("That wiki page does not exist")
     return soup
 
 def get_random_link(soup):
-    #TODO:
-        #find links from tables:
-        # print(soup.select("table.wikitable td a" ))
-
-    #TODO:
-        # fail gracefully
-        # https://en.wikipedia.org/wiki/The_Unconquered_(1940_play)www.google.com
     #If using front page, select from featured article section
     if soup == "https://en.wikipedia.org/wiki/Main_Page":
         links = soup.select('#mp-tfa p a[href]')
     else:
         links = [tag['href'] for tag in soup.select('p a[href]') if re.search(r"^/wiki", tag['href'])]
+        if soup.select("table.wikitable td a"):
+            t_links = [tag['href'] for tag in soup.select("table.wikitable td a") if re.search(r"^/wiki", tag['href'])]
+            links = links + t_links
     rand = random.randint(0, len(links)-1)
     link = links[rand]
     next_link = "https://en.wikipedia.org" + link
@@ -50,5 +49,3 @@ def crawler():
         s = fetch_webpage(start_link)
         start_link = get_random_link(s)
         print(start_link)
-
-crawler()
