@@ -14,6 +14,9 @@ def get_random_link(soup):
         #find links from tables:
         # print(soup.select("table.wikitable td a" ))
 
+    #TODO:
+        # fail gracefully
+        # https://en.wikipedia.org/wiki/The_Unconquered_(1940_play)www.google.com
     #If using front page, select from featured article section
     if soup == "https://en.wikipedia.org/wiki/Main_Page":
         links = soup.select('#mp-tfa p a[href]')
@@ -24,10 +27,15 @@ def get_random_link(soup):
     next_link = "https://en.wikipedia.org" + link
     return next_link
 
+def is_wiki(link):
+    if not re.match(r"\Ahttps://en.wikipedia.org/wiki/", link):
+        raise argparse.ArgumentTypeError("Please enter a wiki link in the format https://en.wikipedia.org/wiki/{page}")
+    return link
+
 def get_arguments():
     parser = argparse.ArgumentParser(description="Go down the Wiki rabbit hole.")
     parser.add_argument('rounds', type=int, help="How many links would you like to see")
-    parser.add_argument('--url', type=str, default="https://en.wikipedia.org/wiki/Main_Page", help="Link to starting page. Needs to be the whole URL")
+    parser.add_argument('--url', type=is_wiki, default="https://en.wikipedia.org/wiki/Main_Page", help="Link to starting page. Needs to be the whole URL")
     args = parser.parse_args()
     return args
 
@@ -35,7 +43,7 @@ def crawler():
     input = get_arguments()
     rounds = input.rounds
     start_link = input.url
-
+#TODO make output more pretty
     print("Start loop: ")
     for i in range(0, rounds):
         print("Round: ", i)
