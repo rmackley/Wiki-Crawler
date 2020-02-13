@@ -5,6 +5,11 @@ Very basic command line wiki crawler
 - Only works on English wiki pages
 
 ****
+Possible features I'd like to add at some point
+-web interface
+-text snippets from each page selected
+
+****
 python wiki_crawler.py -h
 usage: wiki_crawler.py [-h] [--url URL] rounds
 
