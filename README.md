@@ -6,8 +6,8 @@ Very basic command line wiki crawler
 
 ****
 Possible features I'd like to add at some point
--web interface
--text snippets from each page selected
+- web interface
+- text snippets from each page selected
 
 ****
 python wiki_crawler.py -h
