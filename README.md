@@ -1,13 +1,9 @@
 # Wiki-Crawler
 
 Very basic command line wiki crawler
-- Takes number of rounds and optional english wiki page url from user and randomly selects links to follow
+- Start point defaults to the featured article on the english wikipedia homepage
+- Takes number of rounds and optional english wiki page url as start point from user
 - Only works on English wiki pages
-
-****
-Possible features I'd like to add at some point
-- web interface
-- text snippets from each page selected
 
 ****
 python wiki_crawler.py -h
@@ -21,3 +17,8 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   --url URL   Link to starting page. Needs to be the whole URL
+
+****
+Possible future features:
+- text snippets from each page selected
+- multi-language support
